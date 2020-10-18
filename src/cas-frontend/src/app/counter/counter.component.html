@@ -1,6 +1,10 @@
 <div class="counter-container">
   <h4>Counter component</h4> 
-  <counter-view [counter-view-counter]="counter"></counter-view>
-  <counter-controller></counter-controller>
+  <counter-view 
+    [counter-view-counter]="counter">
+  </counter-view>
+  <counter-controller
+    (onIncrement)="incrementCounter($event)">
+  </counter-controller>
 </div>
 <counter-view></counter-view>
