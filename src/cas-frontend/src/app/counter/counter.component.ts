@@ -7,4 +7,8 @@ import { Component } from '@angular/core'
 })
 export class CounterComponent {
   counter = 0;
+
+  incrementCounter (number) {
+    this.counter += number;
+  }
 }

@@ -1,7 +1,11 @@
 <div class="counter-container">
   <h4>Counter component</h4> 
   <div class="counter-view">{{counter}}</div>
-  <button>Increment</button>
-  <button>Decrement</button>
+  <button (click)="incrementCounter(1)">
+    Increment
+  </button>
+  <button (click)="incrementCounter(-1)">
+    Decrement
+  </button>
 </div>
 
