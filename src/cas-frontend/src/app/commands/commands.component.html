@@ -6,6 +6,9 @@
     </h4>
     <app-command-search></app-command-search>
     <app-command-list [commands]="commands"></app-command-list>
+    <button 
+      (click)="addCommand()"
+      class="btn btn-primary">Add Command</button>
   </div>
   <div class="col-md-8 order-md-1 ml-5">
     <!-- <command-update></command-update> -->
