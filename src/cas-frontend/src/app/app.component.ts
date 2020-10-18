@@ -7,5 +7,8 @@ import { Component } from '@angular/core'
 })
 
 export class AppComponent {
-
+  title = 'Hello I am an angular component.'
+  generateNumber () {
+    return 12
+  }
 }
