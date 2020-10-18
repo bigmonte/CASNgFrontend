@@ -1,6 +1,6 @@
 <div class="counter-container">
   <h4>Counter component</h4> 
-  <div class="counter-view">{{counter}}</div>
+  <counter-view [parentInput]="counter"></counter-view>
   <button (click)="incrementCounter(1)">
     Increment
   </button>
