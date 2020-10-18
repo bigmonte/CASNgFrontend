@@ -5,5 +5,5 @@ import { Component, Input } from '@angular/core'
   templateUrl: 'counter-view.component.html'
 })
 export class CounterViewComponent{
-  @Input() parentInput;
+  @Input('counter-view-counter') parentInput;
 }
