@@ -2,15 +2,15 @@ import { Component } from '@angular/core'
 
 function TestDecorator (text) {
   name: 'A simple test decorator'
-  return function (target) {
-    target.data = text;
-    target.meta = {
+    return (component) => {
+      component.data = text;
+      component.meta = {
       prop1: 'text1',
       prop2: 'text2'
     }
     console.log(text)
-    console.log(target.meta.prop1)
-    console.log(target.meta.prop2) 
+    console.log(component.meta.prop1)
+    console.log(component.meta.prop2) 
   }
 }
 
