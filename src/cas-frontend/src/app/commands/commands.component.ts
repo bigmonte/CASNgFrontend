@@ -25,5 +25,9 @@ export class CommandsComponent {
   public toggleView() {
     this.isDetailView = !this.isDetailView
   }
+
+  get btnViewClass(): String {
+    return this.isDetailView ? 'btn-primary' : 'btn-secondary'
+  }
 }
 
