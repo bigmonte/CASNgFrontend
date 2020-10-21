@@ -15,7 +15,9 @@
       <button class="btn-sm btn-primary"
         (click)="toggleView()">Toggle View</button>
     </h4>
-    <app-command-update *ngIf="!isDetailView"></app-command-update>
-    <app-command-detail *ngIf="isDetailView"></app-command-detail>
+    <app-command-update *ngIf="!isDetailView; else updateView"></app-command-update>
+    <ng-template #updateView>
+      <app-command-detail></app-command-detail>    
+    </ng-template>
   </div>
 </div>
