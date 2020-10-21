@@ -8,6 +8,7 @@ import { Command } from './models/Command'
   templateUrl: 'commands.component.html',
 })
 export class CommandsComponent {
+  public isDetailView = true
   public commands: Command[] = [
     { id: 1, commandLine: "dotnet ef ", description: "Print EF Help", platform: ".NET Core EF CLI" },
     { id: 2, commandLine: "dotnet build", description: "Build dotnet Project", platform: ".NET Core CLI" },
@@ -19,6 +20,10 @@ export class CommandsComponent {
   public addCommand() {
     let command: Command = { id: 1, commandLine: "dotnet ef ", description: "Print EF Help", platform: ".NET Core EF CLI" }
     this.commands.unshift(command)
+  }
+
+  public toggleView() {
+    this.isDetailView = !this.isDetailView
   }
 }
 
