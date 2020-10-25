@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Command } from '../../models/Command'
 
 @Component({
@@ -8,5 +8,9 @@ import { Command } from '../../models/Command'
 })
 export class CommandListComponent {
   @Input() commands : Command[];
+  @Output() onCommandClicked = new EventEmitter<Command>()
   
+  handleCommandClick (command: Command) {
+    this.onCommandClicked.next(command)
+  }
 }

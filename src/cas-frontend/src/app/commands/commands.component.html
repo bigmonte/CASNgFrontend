@@ -5,7 +5,9 @@
       <span class="badge badge-secondary badge-pill">{{commands.length}}</span>
     </h4>
     <app-command-search></app-command-search>
-    <app-command-list [commands]="commands"></app-command-list>
+    <app-command-list 
+      [commands]="commands"
+      (onCommandClicked)="handleCommandSelect($event)"></app-command-list>
     <button 
       (click)="addCommand()"
       class="btn btn-primary">Add Command</button>

@@ -1,14 +1,15 @@
 import { Component } from '@angular/core'
 import { Command } from './models/Command'
 
-
-
 @Component({
   selector: 'app-commands',
   templateUrl: 'commands.component.html',
 })
 export class CommandsComponent {
+
+  public selectedCommand: Command
   public isDetailView = true
+
   public commands: Command[] = [
     { id: 1, commandLine: "dotnet ef ", description: "Print EF Help", platform: ".NET Core EF CLI" },
     { id: 2, commandLine: "dotnet build", description: "Build dotnet Project", platform: ".NET Core CLI" },
@@ -18,7 +19,7 @@ export class CommandsComponent {
   ]
 
   public addCommand() {
-    let command: Command = { id: 1, commandLine: "dotnet ef ", description: "Print EF Help", platform: ".NET Core EF CLI" }
+    const command: Command = { id: 1, commandLine: "dotnet ef ", description: "Print EF Help", platform: ".NET Core EF CLI" }
     this.commands.unshift(command)
   }
 
@@ -28,6 +29,11 @@ export class CommandsComponent {
 
   get btnViewClass(): String {
     return this.isDetailView ? 'btn-primary' : 'btn-secondary'
+  }
+
+  public handleCommandSelect (command: Command) {
+    this.selectedCommand = {...command}
+    alert(this.selectedCommand.platform)
   }
 }
 
