@@ -20,7 +20,8 @@
     </h4>
     <app-command-update *ngIf="!isDetailView; else updateView"></app-command-update>
     <ng-template #updateView>
-      <app-command-detail></app-command-detail>    
+      <app-command-detail
+        [command]="selectedCommand"></app-command-detail>    
     </ng-template>
   </div>
 </div>
