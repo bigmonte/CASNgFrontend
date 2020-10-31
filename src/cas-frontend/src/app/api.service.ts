@@ -26,27 +26,34 @@ export class ApiService {
       .pipe(catchError(this.handleError))
   }
 
-  updateCommand (command: Command)  {
+  updateCommand (command: Command): Observable<Command>  {
     return this.http
       .put<Command>(`/api/commands/${command.id}`, command)
       .pipe( catchError(this.handleError))
   }
   
-  addCommand (command: Command)  {
+  addCommand (command: Command): Observable<Command>  {
     return this.http
       .post<Command>('/api/commands/', command)
       .pipe( catchError(this.handleError))
   }
-
   
+  getCommand (id: number): Observable<Command> {
+     return this.http
+      .get<Command>(`/api/commands/${id}`)
+      .pipe( catchError(this.handleError))
+  }
 
-  deleteCommand (id: number)  {
+  deleteCommand (id: number): Observable<Command>  {
     return this.http
       .delete<Command>(`/api/commands/${id}`)
       .pipe(catchError(this.handleError))
   }
 
-
-
+  searchCommand (text: string): Observable<Command[]> {
+    return this.http  
+      .get<Command[]>(`api/search/commands/${text}`)
+      .pipe(catchError(this.handleError))
+  }
 
 }

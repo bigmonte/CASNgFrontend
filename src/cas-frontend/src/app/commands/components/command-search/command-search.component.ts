@@ -1,15 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-command-search',
   templateUrl: './command-search.component.html',
   styleUrls: ['./command-search.component.scss']
 })
-export class CommandSearchComponent implements OnInit {
+export class CommandSearchComponent {
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
+  @Output() onSearch = new EventEmitter<string>()
 
 }

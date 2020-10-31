@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core'
 import { Alert, Command } from './models/Command'
 import { ApiService } from '../api.service'
 import { AlertComponent } from '../shared/header/alert.component'
+import { debounceTime } from 'rxjs/operators'
 
 @Component({
   selector: 'app-commands',
@@ -16,6 +17,22 @@ export class CommandsComponent extends AlertComponent implements OnInit, OnDestr
 
   constructor (private apiService: ApiService) { 
     super()
+  }
+
+
+  searchResult: Command[]
+
+  onSearchText(text) {
+    if (!text.trim().length || !text) { 
+      this.fetchCommands()
+      return
+    }
+    this.apiService
+      .searchCommand(text)
+      .subscribe(results => {
+        this.searchResult = results
+        this.commands = results
+      })
   }
 
   public ngOnInit(): void {

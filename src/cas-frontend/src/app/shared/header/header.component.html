@@ -1,13 +1,28 @@
-<div class="py-5 text-center">
-  <img width="200px" src="/assets/logo.png"/>
-  <h4>Commands and Snippets</h4>
-  <p class="lead">Store your favorite commands and snippets in one place</p>
-  <a routerLink="/commands"
-    routerLinkActive="active"
-    [routerLinkActiveOptions]="{exact: true}"
-    class="btn btn-outline-primary mr-1">Home</a>
-  <a routerLink="/commands/new"
-    routerLinkActive="active"
-    class="btn btn-outline-primary">Add Command</a>
+<header>
+  <div class="collapse bg-dark" id="navbarHeader">
+  </div>
+  <div class="navbar navbar-dark bg-dark box-shadow">
+    <div class="container d-flex justify-content-between">
+      <a 
+        routerLink="/commands"
+        routerLinkActive="active"
+        class="navbar-brand d-flex align-items-center">
+        <strong>Commands and snippets</strong>
+      </a>
+    </div>
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" 
+          href="/commands/new"
+          routerLink="/commands/new">Add Command</a>
+      </li>
+    </ul>
 
-</div>
+  </div>
+</header>
+<section class="jumbotron text-center">
+  <div class="container">
+    <h1 class="jumbotron-heading">Store your favorite commands</h1>
+    <p class="lead text-muted">This is the perfect place to store useful commands so you don't forget them!</p>
+  </div>
+  </section>

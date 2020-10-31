@@ -6,7 +6,7 @@ import { Command } from '../../models/Command';
   templateUrl: './command-detail-card.component.html',
   styleUrls: ['./command-detail-card.component.scss']
 })
-export class CommandDetailComponent  {
+export class CommandDetailCardComponent  {
   @Input() command: Command
 
 }
