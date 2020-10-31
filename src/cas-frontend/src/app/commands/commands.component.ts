@@ -20,6 +20,9 @@ export class CommandsComponent implements OnInit {
     console.log(this.commands)
   }
 
+  public getSelectedCommandCopy() {
+    return {...this.selectedCommand}
+  }
 
   private fetchCommands() {
     this.apiService

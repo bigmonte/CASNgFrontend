@@ -20,7 +20,7 @@
     </h4>
     <app-command-update 
       *ngIf="!isDetailView; else updateView"
-      [selectedCommand]="selectedCommand"></app-command-update>
+      [selectedCommand]="getSelectedCommandCopy()"></app-command-update>
     <ng-template #updateView>
       <app-command-detail
         [command]="selectedCommand"></app-command-detail>    

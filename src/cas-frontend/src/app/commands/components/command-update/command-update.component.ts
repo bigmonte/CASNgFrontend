@@ -10,5 +10,9 @@ export class CommandUpdateComponent {
 
   @Input() selectedCommand: Command;
 
+  submitForm () {
+    alert(JSON.stringify(this.selectedCommand))
+  }
+
 
 }
