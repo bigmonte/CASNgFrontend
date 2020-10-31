@@ -18,7 +18,9 @@
         (click)="toggleView()"
         [ngClass]="btnViewClass">{{isDetailView ? 'Edit command' : 'Command details'}}</button>
     </h4>
-    <app-command-update *ngIf="!isDetailView; else updateView"></app-command-update>
+    <app-command-update 
+      *ngIf="!isDetailView; else updateView"
+      [selectedCommand]="selectedCommand"></app-command-update>
     <ng-template #updateView>
       <app-command-detail
         [command]="selectedCommand"></app-command-detail>    

@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core'
+import { HttpClientModule } from '@angular/common/http'
 import { CommonModule } from '@angular/common'
 import { CommandsComponent } from './commands.component';
 import { CommandSearchComponent } from './components/command-search/command-search.component';
@@ -11,7 +12,7 @@ import { CommandUpdateComponent } from './components/command-update/command-upda
     CommandsComponent, CommandSearchComponent, CommandListComponent, CommandDetailComponent, CommandUpdateComponent,
   ],
   exports : [CommandsComponent],
-  imports : [CommonModule]
+  imports : [CommonModule, HttpClientModule]
 })
 
 export class CommandsModule {}

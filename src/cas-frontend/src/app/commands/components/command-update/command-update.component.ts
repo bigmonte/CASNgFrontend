@@ -1,15 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Command } from '../../models/Command';
 
 @Component({
   selector: 'app-command-update',
   templateUrl: './command-update.component.html',
   styleUrls: ['./command-update.component.scss']
 })
-export class CommandUpdateComponent implements OnInit {
+export class CommandUpdateComponent {
 
-  constructor() { }
+  @Input() selectedCommand: Command;
 
-  ngOnInit(): void {
-  }
 
 }

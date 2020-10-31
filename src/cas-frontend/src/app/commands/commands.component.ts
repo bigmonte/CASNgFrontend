@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { Command } from './models/Command'
+import { ApiService } from '../api.service'
 
 @Component({
   selector: 'app-commands',
@@ -10,16 +11,25 @@ export class CommandsComponent implements OnInit {
   public selectedCommand: Command
   public isDetailView = true
 
-  public commands: Command[] = [
-    { id: 1, commandLine: "dotnet ef ", howTo: "Print EF Help", platform: ".NET Core EF CLI" },
-    { id: 2, commandLine: "dotnet build", howTo: "Build dotnet Project", platform: ".NET Core CLI" },
-    { id: 3, commandLine: "dotnet run", howTo: "Run dotnet Project", platform: ".NET Core CLI" },
-    { id: 4, commandLine: "dotnet new", howTo: "Show help in creating projects", platform: ".NET Core CLI" },
-    { id: 5, commandLine: "dotnet ef migrations add", howTo: "Code first migration", platform: ".NET Core EF CLI" },
-  ]
+  public commands: Command[] = []
   
+  constructor (private apiService: ApiService) { }
+
   public ngOnInit(): void {
-    this.selectedCommand = this.commands[0]
+    this.fetchCommands()
+    console.log(this.commands)
+  }
+
+
+  private fetchCommands() {
+    this.apiService
+      .fetchCommands()
+      .subscribe((commands: Command[]) => {
+        console.log(commands)
+        this.commands = commands
+        this.selectedCommand = this.commands[0]
+        console.log(commands)
+      })
   }
   
   public addCommand () {
