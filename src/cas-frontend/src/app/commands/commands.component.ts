@@ -32,6 +32,11 @@ export class CommandsComponent implements OnInit {
       })
   }
   
+  public refreshCommands (command: Command) {
+    const index = this.commands.findIndex(c => command.id === c.id)
+    this.commands[index] = command
+    this._selectCommand(command)
+  }
   public addCommand () {
     const command: Command = { id: 1, commandLine: "dotnet ef ", howTo: "Print EF Help", platform: ".NET Core EF CLI" }
     this.commands.unshift(command)

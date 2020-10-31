@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core'
-import { HttpClient } from '@angular/common/http'
-import { Observable } from 'rxjs'
+import { HttpClient, HttpErrorResponse } from '@angular/common/http'
+import { Observable, throwError } from 'rxjs'
 import { Command } from './commands/models/Command'
+import { catchError } from 'rxjs/operators'
 
 @Injectable({
   providedIn: 'root'
@@ -10,13 +11,25 @@ import { Command } from './commands/models/Command'
 export class ApiService {
   constructor (private http: HttpClient) { }
 
-  fetchCommands () : Observable<Command[]> {
-    return this.http.get<Command[]>('/api/commands')
+  private handleError (errorRes: HttpErrorResponse): Observable<never> {
+    let message;
+
+    if(errorRes) {
+      message = errorRes.error.title // NET Core MVC error title
+    }
+    return throwError(message)
+  }
+
+  fetchCommands (): Observable<Command[]> {
+    return this.http
+      .get<Command[]>('/api/commands')
+      .pipe(catchError(this.handleError))
   }
 
   updateCommand (command: Command)  {
-    return this.http.put(`/api/commands/${command.id}`, command)
-    debugger
+    return this.http
+      .put<Command>(`/api/commands/asdas${command.id}`, command)
+      .pipe( catchError(this.handleError))
   }
 
 

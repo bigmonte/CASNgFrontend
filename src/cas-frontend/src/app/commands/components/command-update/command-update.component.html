@@ -1,5 +1,7 @@
 <form
   (submit)="submitForm()">
+  <div *ngIf="alert.success" div class="alert alert-success">{{alert?.success}}</div>
+  <div *ngIf="alert.error" div class="alert alert-danger">{{alert?.error}}</div>
   <div class="mb-3">
     <label htmlFor="CommandLine">How To</label>
     <input 

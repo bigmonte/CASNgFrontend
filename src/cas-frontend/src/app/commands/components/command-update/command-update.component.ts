@@ -1,7 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiService } from 'src/app/api.service';
-import { Command } from '../../models/Command';
+import { Alert, Command } from '../../models/Command';
 
 @Component({
   selector: 'app-command-update',
@@ -14,16 +14,29 @@ export class CommandUpdateComponent {
     this.selectedCommand = { ...selectedCommand}
   }
 
+  @Output() onCommandUpdated = new EventEmitter<Command>()
+
   constructor (private apiService: ApiService) { }
   @Input() onSubmit: (command: Command) => Observable<Command>
 
   selectedCommand: Command
+  alert: Alert = new Alert()
+
+  private setAlert (status: string, message:string) {
+    this.alert = new Alert()
+    this.alert[status] = message
+
+    setTimeout(() => {this.alert = new Alert()}, 2000)
+  }
 
   submitForm () {
     this.apiService
       .updateCommand(this.selectedCommand)
       .subscribe(cmd => {
-        console.log('updated')
+        this.onCommandUpdated.emit(cmd)
+        this.setAlert('success', 'Command was updated')
+      }, (error: string) => {
+        this.setAlert('error', error)
       })
   }
 
