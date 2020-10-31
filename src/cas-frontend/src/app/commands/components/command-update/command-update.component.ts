@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { Alert, Command } from '../../models/Command';
 
 @Component({
-  selector: 'app-command-update',
+  selector: 'app-command-form',
   templateUrl: './command-update.component.html',
   styleUrls: ['./command-update.component.scss']
 })

@@ -3,7 +3,7 @@ export class Alert {
   error: string
 }
 
-export interface Command {
+export class Command {
   id: number;
   commandLine: string;
   howTo: string;

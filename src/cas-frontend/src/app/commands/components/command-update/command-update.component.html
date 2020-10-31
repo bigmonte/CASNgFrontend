@@ -1,8 +1,8 @@
 <form
   (submit)="submitForm()">
+  <div class="mb-3">
   <div *ngIf="alert.success" div class="alert alert-success">{{alert?.success}}</div>
   <div *ngIf="alert.error" div class="alert alert-danger">{{alert?.error}}</div>
-  <div class="mb-3">
     <label htmlFor="CommandLine">How To</label>
     <input 
       [(ngModel)]="selectedCommand.howTo"
@@ -35,5 +35,5 @@
   <hr class="mb-4" />
   <button 
     class="btn btn-primary btn-lg btn-block" 
-    type="submit">Update Command</button>
+    type="submit">{{selectedCommand.id? 'Update Command' : 'Create Command'}}</button>
 </form>

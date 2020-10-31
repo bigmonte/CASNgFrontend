@@ -15,13 +15,13 @@
         <button class="btn-sm btn-primary" (click)="toggleView()"
           [ngClass]="btnViewClass">{{isDetailView ? 'Edit command' : 'Command details'}}</button>
         <button (click)="deleteCommand()" class="btn btn-sm btn-danger ml-2">Delete</button>
-        <app-command-detail *ngIf="isDetailView; else updateView" [command]="selectedCommand"></app-command-detail>
+        <app-command-detail-card *ngIf="isDetailView; else updateView" [command]="selectedCommand"></app-command-detail-card>
         <ng-template #updateView>
-          <app-command-update 
+          <app-command-form 
             [onSubmit]="updateCommand"
             [command]="selectedCommand"
             [alert]="alert">
-          </app-command-update>
+          </app-command-form>
         </ng-template>
     </ng-template>
 

@@ -1,43 +1,33 @@
 import { Component, OnInit, OnDestroy } from '@angular/core'
 import { Alert, Command } from './models/Command'
 import { ApiService } from '../api.service'
+import { AlertComponent } from '../shared/header/alert.component'
 
 @Component({
   selector: 'app-commands',
   templateUrl: 'commands.component.html',
 })
-export class CommandsComponent implements OnInit, OnDestroy {
+export class CommandsComponent extends AlertComponent implements OnInit, OnDestroy {
 
   public selectedCommand: Command
   public isDetailView = true
 
   public commands: Command[] = []
-  public alert: Alert = new Alert()
-  timeOutPointer: number
 
-
-  constructor (private apiService: ApiService) { }
+  constructor (private apiService: ApiService) { 
+    super()
+  }
 
   public ngOnInit(): void {
     this.fetchCommands()
   }
 
+  ngOnDestroy(): void {
+    this.clearAlertTimeout()
+  }
+
   public commandsEmpty (): boolean {
     return this.commands.length === 0
-  }
-
-
-  private setAlert (status: string, message:string) {
-    this.alert = new Alert()
-    this.alert[status] = message
-
-    this.timeOutPointer = setTimeout(() =>  this.alert = new Alert (), 2000)
-  }
-
-
-  ngOnDestroy(): void {
-    clearTimeout(this.timeOutPointer)
-
   }
 
   public updateCommand = (command: Command) => {
