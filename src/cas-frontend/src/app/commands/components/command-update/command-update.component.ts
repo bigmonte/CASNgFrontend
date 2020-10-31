@@ -1,4 +1,6 @@
 import { Component, Input } from '@angular/core';
+import { Observable } from 'rxjs';
+import { ApiService } from 'src/app/api.service';
 import { Command } from '../../models/Command';
 
 @Component({
@@ -8,10 +10,21 @@ import { Command } from '../../models/Command';
 })
 export class CommandUpdateComponent {
 
-  @Input() selectedCommand: Command;
+  @Input() set command (selectedCommand: Command) {
+    this.selectedCommand = { ...selectedCommand}
+  }
+
+  constructor (private apiService: ApiService) { }
+  @Input() onSubmit: (command: Command) => Observable<Command>
+
+  selectedCommand: Command
 
   submitForm () {
-    alert(JSON.stringify(this.selectedCommand))
+    this.apiService
+      .updateCommand(this.selectedCommand)
+      .subscribe(cmd => {
+        console.log('updated')
+      })
   }
 
 

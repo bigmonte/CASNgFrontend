@@ -17,7 +17,6 @@ export class CommandsComponent implements OnInit {
 
   public ngOnInit(): void {
     this.fetchCommands()
-    console.log(this.commands)
   }
 
   public getSelectedCommandCopy() {
@@ -28,10 +27,8 @@ export class CommandsComponent implements OnInit {
     this.apiService
       .fetchCommands()
       .subscribe((commands: Command[]) => {
-        console.log(commands)
         this.commands = commands
         this.selectedCommand = this.commands[0]
-        console.log(commands)
       })
   }
   

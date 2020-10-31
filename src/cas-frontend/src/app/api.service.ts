@@ -11,6 +11,13 @@ export class ApiService {
   constructor (private http: HttpClient) { }
 
   fetchCommands () : Observable<Command[]> {
-    return this.http.get<Command[]>('http://localhost:5000/api/commands')
+    return this.http.get<Command[]>('/api/commands')
   }
+
+  updateCommand (command: Command)  {
+    return this.http.put(`/api/commands/${command.id}`, command)
+    debugger
+  }
+
+
 }
