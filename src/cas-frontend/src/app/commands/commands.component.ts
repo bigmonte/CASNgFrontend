@@ -1,29 +1,57 @@
-import { Component, OnInit } from '@angular/core'
-import { Command } from './models/Command'
+import { Component, OnInit, OnDestroy } from '@angular/core'
+import { Alert, Command } from './models/Command'
 import { ApiService } from '../api.service'
 
 @Component({
   selector: 'app-commands',
   templateUrl: 'commands.component.html',
 })
-export class CommandsComponent implements OnInit {
+export class CommandsComponent implements OnInit, OnDestroy {
 
   public selectedCommand: Command
   public isDetailView = true
 
   public commands: Command[] = []
-  
+  public alert: Alert = new Alert()
+  timeOutPointer: number
+
+
   constructor (private apiService: ApiService) { }
 
   public ngOnInit(): void {
     this.fetchCommands()
   }
 
-  public commandsEmpty(): boolean {
+  public commandsEmpty (): boolean {
     return this.commands.length === 0
   }
 
-  private fetchCommands() {
+
+  private setAlert (status: string, message:string) {
+    this.alert = new Alert()
+    this.alert[status] = message
+
+    this.timeOutPointer = setTimeout(() =>  this.alert = new Alert (), 2000)
+  }
+
+
+  ngOnDestroy(): void {
+    clearTimeout(this.timeOutPointer)
+
+  }
+
+  public updateCommand = (command: Command) => {
+    this.apiService
+      .updateCommand(command)
+      .subscribe(cmd => {
+        this.refreshCommands(cmd)
+        this.setAlert('success', 'Command was updated')
+      }, (error: string) => {
+        this.setAlert('error', error)
+      })
+  }
+
+  private fetchCommands () {
     this.apiService
       .fetchCommands()
       .subscribe((commands: Command[]) => {
@@ -32,7 +60,7 @@ export class CommandsComponent implements OnInit {
       })
   }
 
-  getArrIndex(command: Command) : number {
+  getArrIndex (command: Command) : number {
     return this.commands.findIndex(c => command.id === c.id)
   }
   
@@ -41,9 +69,13 @@ export class CommandsComponent implements OnInit {
     this.commands[index] = command
     this._selectCommand(command)
   }
-  public addCommand () {
-    const command: Command = { id: 1, commandLine: "dotnet ef ", howTo: "Print EF Help", platform: ".NET Core EF CLI" }
-    this.commands.unshift(command)
+
+  public addCommand (command: Command) {
+    this.apiService
+      .addCommand(command)
+      .subscribe(c => {
+        this.commands.unshift(c)
+      })
   }
 
   public deleteCommand () {
@@ -68,7 +100,7 @@ export class CommandsComponent implements OnInit {
     this.selectedCommand = {...command}
   }
 
-  get btnViewClass(): String {
+  get btnViewClass (): String {
     return this.isDetailView ? 'btn-primary' : 'btn-secondary'
   }
 

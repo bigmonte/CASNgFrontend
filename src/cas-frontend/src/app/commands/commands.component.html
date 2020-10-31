@@ -6,7 +6,7 @@
     </h4>
     <app-command-search></app-command-search>
     <app-command-list [commands]="commands" (onCommandClicked)="handleCommandSelect($event)"></app-command-list>
-    <button (click)="addCommand()" class="btn btn-primary">Add Command</button>
+    <button class="btn btn-primary">Add Command</button>
   </div>
   <div class="col-md-8 order-md-1 ml-5">
     <div *ngIf="commandsEmpty(); else okList">No commands present</div>
@@ -17,7 +17,10 @@
         <button (click)="deleteCommand()" class="btn btn-sm btn-danger ml-2">Delete</button>
         <app-command-detail *ngIf="isDetailView; else updateView" [command]="selectedCommand"></app-command-detail>
         <ng-template #updateView>
-          <app-command-update (onCommandUpdated)="refreshCommands($event)" [command]="selectedCommand">
+          <app-command-update 
+            [onSubmit]="updateCommand"
+            [command]="selectedCommand"
+            [alert]="alert">
           </app-command-update>
         </ng-template>
     </ng-template>

@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, Output, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ApiService } from 'src/app/api.service';
 import { Alert, Command } from '../../models/Command';
 
 @Component({
@@ -8,50 +7,20 @@ import { Alert, Command } from '../../models/Command';
   templateUrl: './command-update.component.html',
   styleUrls: ['./command-update.component.scss']
 })
-export class CommandUpdateComponent implements OnDestroy {
+export class CommandUpdateComponent {
 
-  @Input() set command (selectedCommand: Command) {
-    
-    if(this.selectedCommand && (this.selectedCommand.id !== selectedCommand.id)) {
-      clearTimeout(this.timeOutPointer)
-      this.alert = new Alert()
-    }
-
-    this.selectedCommand = { ...selectedCommand}
-
-  }
-  @Input() onSubmit: (command: Command) => Observable<Command>
-
+  
+  @Input() alert: Alert
   @Output() onCommandUpdated = new EventEmitter<Command>()
+  @Input() onSubmit: (cmd: Command) => Observable<Command>
+  @Input() set command (selectedCommand: Command) {
+    this.selectedCommand = { ...selectedCommand}
+  }
 
   selectedCommand: Command
-  alert: Alert = new Alert()
-  timeOutPointer: number
-
-  constructor (private apiService: ApiService) { }
-
-  ngOnDestroy(): void {
-    clearTimeout(this.timeOutPointer)
-  }
-
-
-
-  private setAlert (status: string, message:string) {
-    this.alert = new Alert()
-    this.alert[status] = message
-
-    this.timeOutPointer = setTimeout(() =>  this.alert = new Alert (), 2000)
-  }
 
   submitForm () {
-    this.apiService
-      .updateCommand(this.selectedCommand)
-      .subscribe(cmd => {
-        this.onCommandUpdated.emit(cmd)
-        this.setAlert('success', 'Command was updated')
-      }, (error: string) => {
-        this.setAlert('error', error)
-      })
+    this.onSubmit(this.selectedCommand)
   }
 
 
