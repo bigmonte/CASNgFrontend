@@ -19,8 +19,8 @@ export class CommandsComponent implements OnInit {
     this.fetchCommands()
   }
 
-  public getSelectedCommandCopy() {
-    return {...this.selectedCommand}
+  public commandsEmpty(): boolean {
+    return this.commands.length === 0
   }
 
   private fetchCommands() {

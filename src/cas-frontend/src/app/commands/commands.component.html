@@ -5,29 +5,22 @@
       <span class="badge badge-secondary badge-pill">{{commands.length}}</span>
     </h4>
     <app-command-search></app-command-search>
-    <app-command-list 
-      [commands]="commands"
-      (onCommandClicked)="handleCommandSelect($event)"></app-command-list>
-    <button 
-      (click)="addCommand()"
-      class="btn btn-primary">Add Command</button>
+    <app-command-list [commands]="commands" (onCommandClicked)="handleCommandSelect($event)"></app-command-list>
+    <button (click)="addCommand()" class="btn btn-primary">Add Command</button>
   </div>
   <div class="col-md-8 order-md-1 ml-5">
-    <h4 class="mb-3">{{isDetailView ? 'Details' : 'Editing command'}}
-      <button class="btn-sm btn-primary"
-        (click)="toggleView()"
-        [ngClass]="btnViewClass">{{isDetailView ? 'Edit command' : 'Command details'}}</button>
-        <button 
-          (click)="deleteCommand()"
-          class="btn btn-sm btn-danger ml-2">Delete</button>
-    </h4>
-      <app-command-detail
-      *ngIf="isDetailView; else updateView"
-        [command]="selectedCommand"></app-command-detail>   
-    <ng-template #updateView> 
-      <app-command-update
-        (onCommandUpdated)="refreshCommands($event)"
-        [command]="selectedCommand"></app-command-update>
+    <div *ngIf="commandsEmpty(); else okList">No commands present</div>
+    <ng-template #okList>
+      <h4 class="mb-3">{{isDetailView ? 'Details' : 'Editing command'}}</h4>
+        <button class="btn-sm btn-primary" (click)="toggleView()"
+          [ngClass]="btnViewClass">{{isDetailView ? 'Edit command' : 'Command details'}}</button>
+        <button (click)="deleteCommand()" class="btn btn-sm btn-danger ml-2">Delete</button>
+        <app-command-detail *ngIf="isDetailView; else updateView" [command]="selectedCommand"></app-command-detail>
+        <ng-template #updateView>
+          <app-command-update (onCommandUpdated)="refreshCommands($event)" [command]="selectedCommand">
+          </app-command-update>
+        </ng-template>
     </ng-template>
+
   </div>
 </div>
