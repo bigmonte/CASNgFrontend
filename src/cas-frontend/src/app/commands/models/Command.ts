@@ -1,6 +1,6 @@
 export interface Command {
-  readonly id: number;
-  readonly commandLine: string;
-  readonly howTo: string;
-  readonly platform: string;
+  id: number;
+  commandLine: string;
+  howTo: string;
+  platform: string;
 }
