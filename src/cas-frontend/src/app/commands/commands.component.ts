@@ -31,15 +31,32 @@ export class CommandsComponent implements OnInit {
         this.selectedCommand = this.commands[0]
       })
   }
+
+  getArrIndex(command: Command) : number {
+    return this.commands.findIndex(c => command.id === c.id)
+  }
   
   public refreshCommands (command: Command) {
-    const index = this.commands.findIndex(c => command.id === c.id)
+    const index = this.getArrIndex(command)
     this.commands[index] = command
     this._selectCommand(command)
   }
   public addCommand () {
     const command: Command = { id: 1, commandLine: "dotnet ef ", howTo: "Print EF Help", platform: ".NET Core EF CLI" }
     this.commands.unshift(command)
+  }
+
+  public deleteCommand () {
+    const isConfirmed = confirm('Are your sure you want to delete the command?')
+    if(isConfirmed) {
+      this.apiService
+        .deleteCommand(this.selectedCommand.id)
+        .subscribe(c => {
+          const i = this.getArrIndex(c)
+          this.commands.splice(i, 1)
+          this.selectedCommand = this.commands[0]
+        })
+    }
   }
 
   public toggleView () {

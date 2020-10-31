@@ -28,9 +28,18 @@ export class ApiService {
 
   updateCommand (command: Command)  {
     return this.http
-      .put<Command>(`/api/commands/asdas${command.id}`, command)
+      .put<Command>(`/api/commands/${command.id}`, command)
       .pipe( catchError(this.handleError))
   }
+
+  
+  deleteCommand (id: number)  {
+    return this.http
+      .delete<Command>(`/api/commands/${id}`)
+      .pipe(catchError(this.handleError))
+  }
+
+
 
 
 }

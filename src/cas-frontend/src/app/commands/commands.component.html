@@ -17,6 +17,9 @@
       <button class="btn-sm btn-primary"
         (click)="toggleView()"
         [ngClass]="btnViewClass">{{isDetailView ? 'Edit command' : 'Command details'}}</button>
+        <button 
+          (click)="deleteCommand()"
+          class="btn btn-sm btn-danger ml-2">Delete</button>
     </h4>
       <app-command-detail
       *ngIf="isDetailView; else updateView"
