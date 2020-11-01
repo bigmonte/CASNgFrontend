@@ -9,10 +9,13 @@ import { Alert, Command } from '../../models/Command';
 })
 export class CommandUpdateComponent {
 
+  // TODO make form model
   
   @Input() alert: Alert
   @Output() onCommandUpdated = new EventEmitter<Command>()
   @Input() onSubmit: (cmd: Command) => Observable<Command>
+  @Input() disableSubmit: boolean
+  @Input() onFormInputChanged : Function
   @Input() set command (selectedCommand: Command) {
     this.selectedCommand = { ...selectedCommand}
   }
@@ -22,6 +25,5 @@ export class CommandUpdateComponent {
   submitForm () {
     this.onSubmit(this.selectedCommand)
   }
-
 
 }

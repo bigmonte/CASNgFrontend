@@ -2,6 +2,9 @@
   <app-command-form 
     [command]="command"
     [onSubmit]="createCommand"
-    [alert]="alert">
+    [alert]="alert"
+    [onFormInputChanged]="onNewFormChangedCb"
+    [disableSubmit]="disableFormSubmission"
+    >
   </app-command-form>
 </div>

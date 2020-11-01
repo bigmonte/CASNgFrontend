@@ -17,9 +17,11 @@
         <app-command-detail-card *ngIf="isDetailView; else updateView" [command]="selectedCommand"></app-command-detail-card>
         <ng-template #updateView>
           <app-command-form 
+            [disableSubmit]="disableUpdateFormSubmit"
             [onSubmit]="updateCommand"
             [command]="selectedCommand"
-            [alert]="alert">
+            [alert]="alert"
+            [onFormInputChanged]="onUpdateFormChangedCb">
           </app-command-form>
         </ng-template>
     </ng-template>

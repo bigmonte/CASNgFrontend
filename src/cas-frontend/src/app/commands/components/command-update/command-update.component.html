@@ -6,6 +6,7 @@
     <label htmlFor="CommandLine">How To</label>
     <input 
       [(ngModel)]="selectedCommand.howTo"
+      (input)="onFormInputChanged(selectedCommand)"
       name="howTo"
       type="text" 
       class="form-control"
@@ -16,6 +17,7 @@
     <label htmlFor="platform">Platform</label>
     <input 
       [(ngModel)]="selectedCommand.platform"
+      (input)="onFormInputChanged(selectedCommand)"
       name="platform"
       type="text" 
       class="form-control" 
@@ -26,6 +28,7 @@
     <label htmlFor="CommandDescription">Command line</label>
     <input
       [(ngModel)]="selectedCommand.commandLine" 
+      (input)="onFormInputChanged(selectedCommand)"
       name="commandLine"
       type="text" 
       class="form-control" 
@@ -35,5 +38,6 @@
   <hr class="mb-4" />
   <button 
     class="btn btn-primary btn-lg btn-block" 
+    [disabled]="disableSubmit"
     type="submit">{{selectedCommand.id? 'Update Command' : 'Create Command'}}</button>
 </form>

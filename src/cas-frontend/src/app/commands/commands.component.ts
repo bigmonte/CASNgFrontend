@@ -2,7 +2,6 @@ import { Component, OnInit, OnDestroy } from '@angular/core'
 import { Alert, Command } from './models/Command'
 import { ApiService } from '../api.service'
 import { AlertComponent } from '../shared/header/alert.component'
-import { debounceTime } from 'rxjs/operators'
 
 @Component({
   selector: 'app-commands',
@@ -19,7 +18,26 @@ export class CommandsComponent extends AlertComponent implements OnInit, OnDestr
     super()
   }
 
+  public onUpdateFormChangedCb: Function;
 
+
+  disableUpdateFormSubmit: boolean = true
+  onUpdateFormInputChanged (commandForm: Command) {
+    // Do safety checks to the update input
+    // TODO move to its own update form (ps. update form is being reutilized for the new form)
+    if(commandForm.commandLine === this.selectedCommand.commandLine && 
+      commandForm.howTo === this.selectedCommand.howTo &&
+      commandForm.platform === this.selectedCommand.platform) {
+        this.disableUpdateFormSubmit = true
+        return
+      }
+    this.disableUpdateFormSubmit = false
+  }
+
+  public ngOnInit(): void {
+    this.fetchCommands()
+    this.onUpdateFormChangedCb = this.onUpdateFormInputChanged.bind(this)
+  }
   searchResult: Command[]
 
   onSearchText(event: Event) {
@@ -35,10 +53,7 @@ export class CommandsComponent extends AlertComponent implements OnInit, OnDestr
     }
     this.fetchCommands()
   }
-
-  public ngOnInit(): void {
-    this.fetchCommands()
-  }
+ 
 
   ngOnDestroy(): void {
     this.clearAlertTimeout()
@@ -57,6 +72,8 @@ export class CommandsComponent extends AlertComponent implements OnInit, OnDestr
       }, (error: string) => {
         this.setAlert('error', error)
       })
+    this.selectedCommand = command
+    this.onUpdateFormInputChanged(command)
   }
 
   private fetchCommands () {
