@@ -22,17 +22,18 @@ export class CommandsComponent extends AlertComponent implements OnInit, OnDestr
 
   searchResult: Command[]
 
-  onSearchText(text) {
-    if (!text.trim().length || !text) { 
-      this.fetchCommands()
-      return
-    }
-    this.apiService
+  onSearchText(event: Event) {
+    var text = (<HTMLInputElement>event.target).value
+    if(text) {
+      this.apiService
       .searchCommand(text)
       .subscribe(results => {
         this.searchResult = results
         this.commands = results
       })
+      return
+    }
+    this.fetchCommands()
   }
 
   public ngOnInit(): void {

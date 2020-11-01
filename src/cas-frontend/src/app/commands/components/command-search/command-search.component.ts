@@ -7,6 +7,6 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 })
 export class CommandSearchComponent {
 
-  @Output() onSearch = new EventEmitter<string>()
+  @Output() onSearch = new EventEmitter<Event>()
 
 }
